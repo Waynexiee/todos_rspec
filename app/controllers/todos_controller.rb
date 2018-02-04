@@ -1,6 +1,8 @@
 class TodosController < ApplicationController
+  before_action :authenticate
+
   def index
-    @todos = Todo.all 
+    @todos = Todo.all
   end
 
   def new
@@ -10,7 +12,7 @@ class TodosController < ApplicationController
   def create
     @todo = Todo.new(todo_params)
     if @todo.save
-      redirect_to todos_url
+      redirect_to todos_path
     else
       render 'new'
     end
@@ -19,6 +21,8 @@ class TodosController < ApplicationController
   private
 
   def todo_params
-        params.require(:todo).permit(:title)
+    params.require(:todo).permit(:title)
   end
+
+
 end
