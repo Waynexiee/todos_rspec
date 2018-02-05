@@ -2,7 +2,7 @@ class TodosController < ApplicationController
   before_action :authenticate
 
   def index
-    @todos = Todo.all
+    @todos = current_user.todos
   end
 
   def new
@@ -10,7 +10,7 @@ class TodosController < ApplicationController
   end
 
   def create
-    @todo = Todo.new(todo_params)
+    @todo = current_user.todos.create(todo_params)
     if @todo.save
       redirect_to todos_path
     else
