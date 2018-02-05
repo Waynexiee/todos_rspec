@@ -16,7 +16,18 @@ describe Todo, "completed!" do
     todo = Todo.create(completed_at:nil)
 
     todo.completed!
-
+    todo.reload
     expect(todo).to be_completed
+  end
+end
+
+describe Todo, "incompleted!" do
+  it "doesn't have completed_at after completed" do
+    todo = Todo.create(completed_at: Time.current)
+
+    todo.incompleted!
+
+    todo.reload
+    expect(todo).not_to be_completed
   end
 end
